@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Tutorial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Markdown Tutorial</h1>
+        <div class="bg-white p-4 rounded shadow-sm">
+            <p>Berikut adalah cara menggunakan Markdown untuk membuat catatan yang menarik:</p>
+            <ul>
+                <li><strong>Bold</strong>: Gunakan <code>**teks Anda**</code></li>
+                <li><em>Italic</em>: Gunakan <code>*teks Anda*</code></li>
+                <li><u>Underline</u>: Gunakan <code>__teks Anda__</code></li>
+                <li>Heading: Gunakan <code># Heading</code>, <code>## Subheading</code></li>
+                <li>List:
+                    <ul>
+                        <li>Gunakan <code>- Item</code> untuk daftar tak berurutan</li>
+                        <li>Gunakan <code>1. Item</code> untuk daftar berurutan</li>
+                    </ul>
+                </li>
+                <li>Link: Gunakan <code>[Teks](https://example.com)</code></li>
+                <li>Gambar: Gunakan <code>![Alt Text](https://example.com/image.jpg)</code></li>
+            </ul>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Back to List</a>
+        </div>
+    </div>
+</body>
+</html>

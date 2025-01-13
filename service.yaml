@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-todo-app-service
+spec:
+  selector:
+    app: flask-todo-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer  # Anda bisa menggunakan NodePort jika LoadBalancer tidak berfungsi

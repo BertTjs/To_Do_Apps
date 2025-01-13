@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-todo-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-todo-app
+  template:
+    metadata:
+      labels:
+        app: flask-todo-app
+    spec:
+      containers:
+      - name: flask-todo-app
+        image: gilbertstone/flask-todo-app:latest  # Pastikan ini sesuai dengan nama image yang ada di Docker Hub
+        ports:
+        - containerPort: 5000
