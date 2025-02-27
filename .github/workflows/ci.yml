@@ -40,11 +40,21 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Step 3: Build and Push Docker image
-      - name: Build and Push Docker image
+      - name: Debug Docker Username and SHA
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-todo-app:${{ github.sha }} .
-          docker push ${{ secrets.DOCKER_USERNAME }}/flask-todo-app:${{ github.sha }}
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
+          echo "GITHUB_SHA=${{ github.sha }}"
+
+      # Step 3: Build and Push Docker image
+      - name: Build and Push Docker 
+        uses: docker/build-push-action@v2
+        with:
+          platforms: linux/amd64
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DEPLOYMENT_NAME}}:${{ github.sha }}
+
 
       - name: Deploy to cluster
         uses: nickgronow/kubectl@master
