@@ -40,11 +40,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Debug Docker Username and SHA
-        run: |
-          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
-          echo "GITHUB_SHA=${{ github.sha }}"
-
       # Step 3: Build and Push Docker image
       - name: Build and Push Docker 
         uses: docker/build-push-action@v2
@@ -53,11 +48,18 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DEPLOYMENT_NAME}}:${{ github.sha }}
+          tags: gilbertstone/${{ env.DEPLOYMENT_NAME}}:${{ github.sha }}
 
-
+  dev:
+    name: Deploy To Dev
+    environment:
+      name: dev
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@master
       - name: Deploy to cluster
         uses: nickgronow/kubectl@master
         with:
           config_data: ${{ secrets.K8S_CONFIG }}
-          args: set image --record deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.CONTAINER_NAME }}=${{ secrets.DOCKER_USERNAME }}/flask-todo-app:${{ github.sha }} -n ${{ env.NAMESPACES }}
+          args: set image --record deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.CONTAINER_NAME }}=gilbertstone/flask-todo-app:${{ github.sha }} -n ${{ env.NAMESPACES }}
