@@ -2,11 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: flask-todo-app-service
+  namespace: todo
 spec:
   selector:
     app: flask-todo-app
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 5000
-  type: LoadBalancer  # Anda bisa menggunakan NodePort jika LoadBalancer tidak berfungsi
+    - name: http
+      port: 5000
+      targetPort: 5000 # port dari container
+      nodePort: 31000 # port yang di akses dari luar
+      protocol: TCP
+  type: NodePort  # Anda bisa menggunakan NodePort jika LoadBalancer tidak berfungsi
