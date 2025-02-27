@@ -61,5 +61,5 @@ jobs:
       - name: Deploy to cluster
         uses: nickgronow/kubectl@master
         with:
-          config_data: ${{ secrets.K8S_CONFIG }}
+          config_data: ${{ secrets.KUBE_CONFIG }}
           args: set image --record deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.CONTAINER_NAME }}=gilbertstone/flask-todo-app:${{ github.sha }} -n ${{ env.NAMESPACES }}
