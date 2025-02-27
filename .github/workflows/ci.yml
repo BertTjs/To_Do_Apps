@@ -48,7 +48,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: gilbertstone/${{ env.DEPLOYMENT_NAME}}:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USER }}/${{ env.DEPLOYMENT_NAME}}:${{ github.sha }}
 
   dev:
     name: Deploy To Dev
@@ -62,4 +62,4 @@ jobs:
         uses: nickgronow/kubectl@master
         with:
           config_data: ${{ secrets.KUBE_CONFIG }}
-          args: set image --record deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.CONTAINER_NAME }}=gilbertstone/flask-todo-app:${{ github.sha }} -n ${{ env.NAMESPACES }}
+          args: set image --record deployment/${{ env.DEPLOYMENT_NAME }} ${{ env.CONTAINER_NAME }}=${{ secrets.DOCKER_USER }}/flask-todo-app:${{ github.sha }} -n ${{ env.NAMESPACES }}
