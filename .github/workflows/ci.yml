@@ -48,7 +48,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/flask-todo-app:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DEPLOYMENT_NAME}}:${{ github.sha }}
 
 
       - name: Deploy to cluster
